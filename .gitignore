@@ -4,8 +4,6 @@
 .idea/SeleniumExample.iml
 .vscode/settings.json
 /.venv
-/src/pages/__pycache__
-/test/__pycache__
-/test/login/__pycache__
-/src/pages/__pycache__
-/src/pages/__pycache__
+__pycache__/
+*.py[cod]
+.pytest_cache/
