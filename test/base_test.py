@@ -4,6 +4,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 
+from src.driver_factory import DriverFactory
 from src.utils.config_reader import read_config
 
 
@@ -12,8 +13,8 @@ class BaseTest:
     wait: WebDriverWait
 
     @pytest.fixture(autouse=True)
-    def before_each(self, chrome_options):
-        self.driver = webdriver.Chrome(chrome_options)
+    def before_each(self):
+        self.driver = DriverFactory().get_driver(read_config('WEBSITE', 'Browser'))
         website_url = read_config('WEBSITE', 'BaseUrl')
         # website_url = 'https://bstackdemo.com/'
         self.driver.get(website_url)

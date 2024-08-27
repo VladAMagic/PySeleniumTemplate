@@ -1,9 +1,8 @@
-import time
-
 from selenium import webdriver
-from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
+from src.data.factory.user_fac import create_default_user
+from src.data.model.user import UserModel
 from src.pages.base import PageBase, Locator
 
 
@@ -18,11 +17,13 @@ class LoginPage(PageBase):
         super().__init__(driver)
         self.wait.until(expected_conditions.url_contains(self.url))
 
-    def fill_login(self, username: str = "demouser\n", password: str = "testingisfun99\n"):
+    def fill_login(self, user: UserModel = create_default_user()):
         self.driver.find_element(*self.username_selector).is_displayed()
-        self.driver.find_element(*self.username_selector).send_keys(username)
+        self.driver.find_element(
+            *self.username_selector).send_keys(user.username)
         self.driver.find_element(*self.password_selector).is_displayed()
-        self.driver.find_element(*self.password_selector).send_keys(password)
+        self.driver.find_element(
+            *self.password_selector).send_keys(user.password)
 
     def submit_login(self):
         self.driver.find_element(*self.login_button).is_displayed()
